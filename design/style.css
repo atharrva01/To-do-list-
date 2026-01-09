@@ -1,0 +1,408 @@
+/* ========================================
+   LOGIN PAGE - DARK GLASSMORPHIC THEME
+   ======================================== */
+
+#error-msg {
+  display: none;
+}
+
+/* =========================
+   Global Reset & Variables
+========================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+:root {
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.18);
+  --blur: blur(20px);
+
+  --primary: #7c9cff;
+  --primary-glow: rgba(124, 156, 255, 0.4);
+  --danger: #f87171;
+  --danger-glow: rgba(248, 113, 113, 0.4);
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+  --accent: #a78bfa;
+}
+
+/* =========================
+   Body & Animated Background
+========================= */
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
+  color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Floating animated orbs */
+body::before,
+body::after {
+  content: '';
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.3;
+  animation: float 15s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::before {
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(124, 156, 255, 0.4), transparent);
+  top: -200px;
+  right: -200px;
+}
+
+body::after {
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(167, 139, 250, 0.3), transparent);
+  bottom: -150px;
+  left: -150px;
+  animation-delay: 7s;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translate(0, 0) scale(1);
+  }
+  33% {
+    transform: translate(30px, -30px) scale(1.1);
+  }
+  66% {
+    transform: translate(-20px, 20px) scale(0.9);
+  }
+}
+
+/* Animated grid background */
+body::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(124, 156, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 156, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 0;
+  animation: gridMove 20s linear infinite;
+}
+
+@keyframes gridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+/* =========================
+   Login Form Container
+========================= */
+form {
+  width: 100%;
+  max-width: 450px;
+  background: var(--glass-bg);
+  backdrop-filter: var(--blur);
+  -webkit-backdrop-filter: var(--blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 60px 50px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 1;
+  animation: slideInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Glowing effect on form */
+form::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(135deg, 
+    rgba(124, 156, 255, 0.3), 
+    rgba(167, 139, 250, 0.3), 
+    rgba(236, 72, 153, 0.3)
+  );
+  border-radius: 24px;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.5s ease;
+  filter: blur(20px);
+}
+
+form:hover::before {
+  opacity: 0.6;
+}
+
+/* Logo/Title before form */
+form::after {
+  content: '✨ Welcome';
+  position: absolute;
+  top: -80px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #7c9cff, #a78bfa, #ec4899);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  letter-spacing: -1px;
+  animation: glow-pulse 3s ease-in-out infinite;
+  white-space: nowrap;
+}
+
+@keyframes glow-pulse {
+  0%, 100% {
+    filter: drop-shadow(0 0 20px var(--primary-glow));
+  }
+  50% {
+    filter: drop-shadow(0 0 40px var(--primary-glow));
+  }
+}
+
+/* =========================
+   Input Field
+========================= */
+#name {
+  width: 100%;
+  padding: 16px 20px;
+  border-radius: 14px;
+  border: 1px solid var(--glass-border);
+  outline: none;
+  background: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(10px);
+  color: var(--text-main);
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+}
+
+#name::placeholder {
+  color: var(--text-muted);
+}
+
+#name:focus {
+  border-color: var(--primary);
+  background: rgba(124, 156, 255, 0.05);
+  box-shadow: 0 0 0 4px var(--primary-glow);
+  transform: translateY(-2px);
+}
+
+#name:valid {
+  border-color: rgba(74, 222, 128, 0.5);
+}
+
+/* =========================
+   Error Message
+========================= */
+#error-msg {
+  padding: 12px 16px;
+  background: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.3);
+  border-radius: 12px;
+  animation: shake 0.4s ease;
+  margin-top: -12px;
+}
+
+#error-msg small {
+  color: #fca5a5;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: block;
+}
+
+#error-msg br {
+  display: none;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+/* =========================
+   Submit Button
+========================= */
+input[type="submit"] {
+  width: 100%;
+  padding: 16px 20px;
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(135deg, var(--primary) 0%, #6366f1 100%);
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 8px 24px var(--primary-glow);
+  position: relative;
+  overflow: hidden;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+input[type="submit"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+input[type="submit"]:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px var(--primary-glow);
+}
+
+input[type="submit"]:hover::before {
+  left: 100%;
+}
+
+input[type="submit"]:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 16px var(--primary-glow);
+}
+
+/* Ripple effect on click */
+input[type="submit"]::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s, opacity 0.6s;
+  opacity: 0;
+}
+
+input[type="submit"]:active::after {
+  width: 300px;
+  height: 300px;
+  opacity: 0;
+}
+
+/* =========================
+   Floating particles decoration
+========================= */
+form::before {
+  content: '✦';
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 1.5rem;
+  color: rgba(124, 156, 255, 0.3);
+  animation: rotate 10s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* =========================
+   Additional decorative elements
+========================= */
+form::after {
+  content: '✦';
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  font-size: 1.2rem;
+  color: rgba(167, 139, 250, 0.3);
+  animation: rotate 15s linear infinite reverse;
+}
+
+/* =========================
+   Responsive Design
+========================= */
+@media (max-width: 600px) {
+  form {
+    max-width: 100%;
+    padding: 50px 35px;
+    border-radius: 20px;
+  }
+
+  form::after {
+    font-size: 2rem;
+    top: -70px;
+  }
+
+  #name {
+    padding: 14px 18px;
+    font-size: 0.95rem;
+  }
+
+  input[type="submit"] {
+    padding: 14px 18px;
+    font-size: 0.95rem;
+  }
+
+  #error-msg {
+    padding: 10px 14px;
+  }
+
+  #error-msg small {
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 400px) {
+  form {
+    padding: 40px 28px;
+  }
+
+  form::after {
+    font-size: 1.8rem;
+    top: -65px;
+  }
+}

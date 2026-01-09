@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-do app </title>
+    <link rel="stylesheet" href="/design/app.css">
+</head>
+<body>
+    <h1>Advanced Todo List</h1>
+    <h2>Welcome, <span id="username"></span></h2>
+
+    <div class="app">
+        <div class="header">
+            <input id="search_bar" type="text" placeholder="Search tasks...">
+            <h3 id="no-tasks">You don't have any tasks yet.</h3>
+            
+        </div>
+        
+        <div class="stats">
+            <span id="total-task"></span>
+            <span id="completed-task"></span>
+        </div>
+
+        <div class="main">
+            <form>
+                <input type="text" placeholder="Add a new task..." id="user_input">
+                <div class="error">
+                    <small>Task must be at least 3 characters.</small>
+                </div>
+                <input class="sub_btn" type="submit" value="Add Task">
+            </form>
+        </div>
+
+        
+        <div class="footer">
+            </div>
+    </div>
+    <script src="/workflow/app.js"></script>
+</body>
+</html>
